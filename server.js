@@ -43,7 +43,7 @@ app.post('/filter_grants_1/', (req, res) => {
 app.post('/filter_grants_2/', (req, res) => {
     const { title_keyword, desc_keyword, sf_or_both, eligibility, category, agency, week, email, secret_key } = req.body;
     console.log('===', '\n', req. url, '\n', req.params, '\n===');
-    if (secret_key != 'this is changed') {
+    if (secret_key != 'i_luv_DHEC') {
         res.status(401).send({
             Status: 'Error, incorrect secret_key!',
         });
@@ -56,7 +56,7 @@ app.post('/filter_grants_2/', (req, res) => {
     }
 });
 
-port_num = 5000;
+port_num = process.env.PORT || 5000;
 app.listen(port_num, () => {
     console.log(`Listening on Port ${port_num}`);
 });

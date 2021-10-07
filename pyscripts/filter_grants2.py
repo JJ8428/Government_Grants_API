@@ -198,5 +198,5 @@ with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
     smtp.ehlo()
     smtp.starttls()
     smtp.ehlo()
-    smtp.login('grantsapi.donotreply@gmail.com', 'wrong pwd')
+    smtp.login('grantsapi.donotreply@gmail.com', 'grantsAPI88')
     smtp.send_message(msg)
