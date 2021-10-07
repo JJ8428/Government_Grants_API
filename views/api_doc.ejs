@@ -1,0 +1,198 @@
+<%- include('partials/header') %>
+    <div id="white_div">
+        <p><b>Currently, there exists only 2 methods for this API. Only one can be accessed publically; the other method allows for emails, but to prevent spam/abuse, it requires a secret key.</b></p>
+
+        <h2>Method 1: /filter_grants_1</h2>
+        <hr>
+        <p>Method Type:</p>
+        <pre>POST</pre>
+        <p>Request Body:</p>
+        <pre>
+        {
+            "title_keyword": ...,
+            "desc_keyword": ...,
+            "sf_or_both": ...,
+            "eligibility": ...,
+            "category": ...,
+            "agency": ...,
+            "week": ...,
+            "form": ...
+        }
+        </pre>
+        <p>Request Header:</p>
+        <pre>{'Content-Type': 'application/json'}</pre>
+
+        <h2>Method 2: /filter_grants_2</h2>
+        <hr>
+        <p>Method Type:</p>
+        <pre>POST</pre>
+        <p>Request Body:</p>
+        <pre>
+        {
+            "title_keyword": ...,
+            "desc_keyword": ...,
+            "sf_or_both": ...,
+            "eligibility": ...,
+            "category": ...,
+            "agency": ...,
+            "week": ...,
+            "email": ...,
+            "secret_key": ...
+        }
+        </pre>
+        <p>Request Header:</p>
+        <pre>{'Content-Type': 'application/json'}</pre>
+
+        <h2>Definitions of request body elements:</h2>
+        <hr>
+        <h4>title_keyword</h4>
+        <span>
+            title_keyword applies a word filter on the column labelled <b>Opportunity Title</b>. This element applies my own version of boolean logic.
+            Suppose title_keyword is set to the string: "disabled, challenged, ~veteran, ~poverty". 
+            This will make the API return a response where it will filter for grants that contain the substrings 'disabled' OR 'challenged' in the grant's Opportunity Title.
+            Then it will take those grants and remove all grants that contain any of the keywords with a '~' in the front. (~ can be interpretted as NOT)
+            So in this case, it will filter out all grants that contain the substrings 'veteran' OR 'poverty' in the Opportunity Title.
+            If the user wishes to not apply any text filterspan for Opportunity Title, then have this element has 'no_filter'.
+        </span>
+        <h4>desc_keyword</h4>
+        <span>
+            desc_keyword applies a word filter on the column labelled <b>Description</b>. This element applies my own version of boolean logic.
+            Suppose title_keyword is set to the string: "disabled, challenged, ~veteran, ~poverty". 
+            This will make the API return a response where it will filter for grants that contain the substrings 'disabled' OR 'challenged' in the grant's Opportunity Title.
+            Then it will take those grants and remove all grants that contain any of the keywords with a '~' in the front. (~ can be interpretted as NOT)
+            So in this case, it will filter out all grants that contain the substrings 'veteran' OR 'poverty' in the Description.
+            If the user wishes to not apply any text filter for Description, then have this element has 'no_filter'.
+            <b>This is an exact copy of title_keyboard, the only difference being that filtration applies to a different column.</b>
+        </span>
+        <h4>sf_or_both</h4>
+        <span>
+            sf_or_both is an element that filters whethers grants are classified as a <b>synopsis</b> or <b>forecast</b>. Synopsis have most of their details confirmed.
+            Forecasts are grants still in development, and as a result, theirs details are subject to be missing or change over time.
+            This element can only be "s", "f", or "b".
+            "s" makes the API filter for grants that are a synopsis.
+            "f" makes the API filter for grants that are a forecast.
+            "b" allows for both synopis or a forecast. This essentially means no filter.
+        </span>
+        <h4>eligibility</h4>
+        <span>
+            These are all the eligibility codes:
+        </span>
+        <pre>
+            Unfiltered
+            00: State Government
+            01: County Government
+            02: City or Township Government
+            04: Special District Government
+            05: Independent School District
+            06: Public/State Controlled Institution of Higher Education
+            07: Native American Tribal Government (Federally Recognized)
+            08: Public/Indian Housing Authority
+            11: Native American Tribal Organization (Not Federally Recognized)
+            12: Nonprofit with 501 (c) status with IRS, not Institution of Higher Education
+            13: Nonprofit without 501 (c) (3) status with the IRS, not Institution of Higher Education
+            20: Private Institution of Higher Education
+            21: Individual
+            22: For-profit Organization, not Small Business
+            23: Small Business
+            25: Others
+        </pre>
+        <span>
+            The user can create a list of eligibilities that the API will use to filter out grants that do not contain any of the desired eligibilities.
+            To create the filter, the user should create a string of all the eligibility codes desired and have each one seperated with a underscore in a string.
+            If the user wants a list of grants that are eligible for State Government OR County Government OR Small Business, the eligibility element should be: "00_01_23".
+            This will result in a API response with grants that contain atleast one of 3 eligibility codes.
+            If the user does not want to filter using this element, also known as Unfiltered, set the eligibility element to: "99".
+        </span>
+        <h4>category</h4>
+        <span>These are all the category codes:</span>
+        <pre>
+            Unfiltered
+            ACA: Affordable Care Act
+            AG: Agriculture
+            AR: Arts
+            BC: Business and Commerce
+            CD: Community Development
+            CP: Consumer Protection
+            DPR: Disaster Prevention and Relief
+            ED: Education
+            ELT: Employment, Labor and Training
+            EN: Energy
+            ENV: Environment
+            FN: Food and Nutrition
+            HL: Health
+            HO: Housing
+            HU: Humanities
+            ISS: Income Security and Social Services
+            IS: Information and Statistics
+            LJL: Law, Justice, and Legal Services
+            NR: Natural Resources
+            RA: Recovery Act
+            RD: Regional Development
+            ST: Science and Technology and other Research and Development
+            T: Transportation
+        </pre>
+        <span>
+            The user can create a list of categories that the API will use to filter out grants that do not contain any of the desired categories.
+            To create the filter, the user should create a string of all the eligibility codes desired and have each one seperated with a underscore in a string.
+            If the user wants a list of grants that are eligible for Education OR Health OR Humanities, the eligibility element should be: "HL_HO_HU".
+            This will result in a API response with grants that contain atleast one of 3 category codes.
+            If the user does not want to filter using this element, also known as Unfiltered, set the category element to: "Z".
+        </span>
+        <h4>agency</h4>
+        <span>These are all the agency codes:</span>
+        <pre>
+            Unrestricted
+            USAID: Agency for International Development
+            AC: AmeriCorps
+            USDA: Department of Agriculture
+            DOC: Department of Commerce
+            DOD: Department of Defense
+            ED: Department of Education
+            DOE: Department of Energy
+            PAMS: Department of Energy - Office of Science
+            HHS: Department of Health and Human Services
+            DHS: Department of Homeland Security
+            HUD: Department of Housing and Urban Development
+            USDOJ: Department of Justice
+            DOL: Department of Labor
+            DOS: Department of State
+            DOI: Department of the Interior
+            USDOT: Department of the Treasury
+            DOT: Department of Transportation
+            VA: Department of Veterans Affairs
+            EPA: Environmental Protection Agency
+            GCERC: Gulf Coast Ecosystem Restoration Council
+            IMLS: Institute of Museum and Library Services
+            MCC: Millenium Challenge Corporation
+            NASA: National Aeronautics and Space Administration
+            NARA: National Arhcives and Records Administration
+            NEA: National Endowment for the Arts
+            NEH: National Endowment for the Humanities
+            NSF: National Science Foundation
+            NRC: Nuclear Regulatory Commission
+            SBA: Small Business Administration
+        </pre>
+        <span>
+            The user can create a list of agencies that the API will use to filter out grants that do not contain any of the desired agencies.
+            To create the filter, the user should create a string of all the agency codes desired and have each one seperated with a underscore in a string.
+            If the user wants a list of grants that are eligible for Department of Justice OR Department of Labor OR Department of the Interior, the eligibility element should be: "DOL_DOS_DOI".
+            This will result in a API response with grants that contain atleast one of 3 agency codes.
+            If the user does not want to filter using this element, also known as Unfiltered, set the agency element to: "*".
+        </span>
+        <h4>week</h4>
+        <span>
+            This varies between 1, 2, 3, and 4. This element correesponds to how many weeks old grant is. A grant is considered a week old based on when was the Monday of last week.
+            (The Monday of the week the grant was released counts as 0.)
+        </span>
+        <h4>email</h4>
+        <span>
+            This is simply a string that contains the <b>email</b> for this API's POST request to send its respose to.
+        </span>
+        <h4>secret_key</h4>
+        <span>
+            This is a secret string that allows the method /filter_grants_2/ to work. This is secret due to me being lazy to create a proper authenciation purpose.
+            Why is it a secret, I don't want this API to be misused .
+            (I really want to focus on DS/ML, not full stack. This project only exists so I can call on full stack if DS/ML never works for me)
+        </span>
+    </div>
+<%- include('partials/footer') %>
