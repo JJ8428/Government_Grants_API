@@ -190,4 +190,9 @@ if form == 'html':
 elif form == 'json':
     print(grants_df.to_json())
 
+'''
+Calling sys. stdout. flush() forces it to "flush" the buffer,
+meaning that it will write everything in the buffer to the terminal, 
+even if normally it would wait before doing so.
+'''
 sys.stdout.flush()

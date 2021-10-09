@@ -1,255 +1,29 @@
 <%- include('partials/header') %>
     <div id="white_div">
-        <form>
-            <p><b>Database is updated with new grants at 6:30:00 AM daily unless grants.gov is down.</b></p>
-
-            <h2>Browse Grants:</h2>
-            <hr>
-
-            <label>Title Keywords: (Optional)</label>
+        <h2>Welcome</h2>
+        <hr>
+        <p>
+            My name is JJ Satti and this is just little API I created as a personal project. It's purpose it to make a quick way for me to filter through grants
+            with a UI and functionality that I myself am familiar with. 
             <br><br>
-            <input type="text" id="title_kwrd">
+            There exists an API for <b>https://www.grants.gov/</b> already, but I just wanted to make one for my own excercise of Node.js, Express.js, Python, and Pandas.
             <br><br>
-
-            <label>Description Keywords: (Optional)</label>
+            Currently, there only exists 2 API methods both of which are POSTS. Only one is accesible to the public, the other is gaurded by a secret key.
             <br><br>
-            <input type="text" id="desc_kwrd">
+            This is the website (<a href="https://www.grants.gov/web/grants/search-grants.html">https://www.grants.gov/web/grants/search-grants.html</a>) which this API's function emulates.
             <br><br>
-
-            <label>View:</label>
-            <br><br>
-            <select id="sf_or_both">
-                <option value="b">BOTH Synopses and Forecasts</option>
-                <option value="s">Synopses ONLY</option>
-                <option value="f">Forecasts ONLY</option>
-            </select>
-            <br><br>
-
-            <label>Eligibile Applicant: (Required)</label>
-            <br><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="99" checked>Unrestricted</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="00">00: State Government</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="01">01: County Government</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="02">02: City or Township Government</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="04">04: Special District Government</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="05">05: Independent School District</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="06">06: Public/State Controlled Institution of Higher Education</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="07">07: Native American Tribal Government (Federally Recognized)</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="08">08: Public/Indian Housing Authority</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="11">11: Native American Tribal Organization (Not Federally Recognized)</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="12">12: Nonprofit with 501 (c) status with IRS, not Institution of Higher Education</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="13">13: Nonprofit without 501 (c) (3) status with the IRS, not Institution of Higher Education</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="20">20: Private Institution of Higher Education</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="21">21: Individual</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="22">22: For-profit Organization, not Small Business</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="23">23: Small Business</input><br>
-            <input type="checkbox" name="group1" id="elgb" onclick="elgb_checkbox(this)" value="25">25: Others</input><br>
-            <br>
-
-            <label>Category of Funding Activity: (Required)</label>
-            <br><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="Z" checked>Unrestricted</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="ACA">ACA: Affordable Care Act</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="AG">AG: Agriculture</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="AR">AR: Arts</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="BC">BC: Business and Commerce</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="CD">CD: Community Development</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="CP">CP: Consumer Protection</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="DPR">DPR: Disaster Prevention and Relief</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="ED">ED: Education</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="ELT">ELT: Employment, Labor and Training</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="EN">EN: Energy</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="ENV">ENV: Environment</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="FN">FN: Food and Nutrition</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="HL">HL: Health</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="HO">HO: Housing</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="HU">HU: Humanities</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="ISS">ISS: Income Security and Social Services</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="IS">IS: Information and Statistics</input><br>            
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="LJL">LJL: Law, Justice, and Legal Services</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="NR">NR: Natural Resources</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="RA">RA: Recovery Act</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="RD">RD: Regional Development</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="ST">ST: Science and Technology and other Research and Development</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="T">T: Transportation</input><br>
-            <input type="checkbox" name="group2" id="cat" onclick="cat_checkbox(this)" value="O">O: Other</input><br>
-            <br>
-
-            <label>Agency: (Required)</label>
-            <br><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="*" checked>Unrestricted</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="USAID">USAID: Agency for International Development</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="AC">AC: AmeriCorps</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="USDA">USDA: Department of Agriculture</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOC">DOC: Department of Commerce</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOD">DOD: Department of Defense</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="ED">ED: Department of Education</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOE">DOE: Department of Energy</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="PAMS">PAMS: Department of Energy - Office of Science</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="HHS">HHS: Department of Health and Human Services</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DHS">DHS: Department of Homeland Security</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOC">HUD: Department of Housing and Urban Development</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="USJOJ">USDOJ: Department of Justice</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOL">DOL: Department of Labor</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOC">DOS: Department of State</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOC">DOI: Department of the Interior</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="USDOT">USDOT: Department of the Treasury</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOT">DOT: Department of Transportation</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="VA">VA: Department of Veterans Affairs</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="EPA">EPA: Environmental Protection Agency</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="GCERC">GCERC: Gulf Coast Ecosystem Restoration Council</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="IMLS">IMLS: Institute of Museum and Library Services</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="DOC">MCC: Millenium Challenge Corporation</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="NASA">NASA: National Aeronautics and Space Administration</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="NARA">NARA: National Arhcives and Records Administration</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="NEA">NEA: National Endowment for the Arts</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="NEH">NEH: National Endowment for the Humanities</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="NSF">NSF: National Science Foundation</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="NRC">NRC: Nuclear Regulatory Commission</input><br>
-            <input type="checkbox" name="group3" id="agnc" onclick="agnc_checkbox(this)" value="SBA">SBA: Small Business Administration</input><br>
-            <br>
-
-            <label>Max Post Age (Weeks): (Required)</label>
-            <br><br>
-            <select id="week">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            <br><br>
-        
-            <input id="submit_btn" type="submit" value="Filter Grants">
-            <br><br>
-        </form>
+            <iframe src="https://www.grants.gov/web/grants/search-grants.html"></iframe>
+        </p>
+        <h2>Contact Info:</h2>
+        <hr>
+        Business Email: nsatti.sc@gmail.com
+        <br><br>
+        Github: <a href="https://github.com/JJ8428">JJ8428</a>
+        <br><br>
+        LinkedIn: <a href="https://www.linkedin.com/in/jagjit-satti/">Jagjit Satti</a>
+        <br><br>
+        Both these links contains a great deal of information regarding my education, work history, skills, and past projects. Resume is available on request.
+        <br><br>
+        If interested inviting for interviews or coding assesments, <b>PLEASE CONTACT ME.</b> I really want build a career as a Software and ML/AI engineer.
     </div>
-    <div id="output"></div>
-    <script>
-
-        function elgb_checkbox(given) {
-            const checkboxes = document.getElementsByName("group1");
-            if (given.value == "99") {
-                for (let i = 1; i < checkboxes.length; i++) {
-                    checkboxes[i].checked = false;
-                }
-            }
-            else {
-                checkboxes[0].checked = false;
-            }
-        }
-
-        function cat_checkbox(given) {
-            const checkboxes = document.getElementsByName("group2");
-            if (given.value == "Z") {
-                for (let i = 1; i < checkboxes.length; i++) {
-                    checkboxes[i].checked = false;
-                }
-            }
-            else {
-                checkboxes[0].checked = false;
-            }
-        }
-
-        function agnc_checkbox(given) {
-            const checkboxes = document.getElementsByName("group3");
-            if (given.value == "*") {
-                for (let i = 1; i < checkboxes.length; i++) {
-                    checkboxes[i].checked = false;
-                }
-            }
-            else {
-                checkboxes[0].checked = false;
-            }
-        }
-
-        const form = document.querySelector('form');
-        let output_div = document.getElementById('output');
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            let title_kwrd = form.title_kwrd.value.replace(/\s+/g, '');
-            if (title_kwrd == '') {
-                title_kwrd = 'no_filter';
-            }
-
-            let desc_kwrd = form.desc_kwrd.value.replace(/\s+/g, '');
-            if (desc_kwrd == '') {
-                desc_kwrd = 'no_filter';
-            }
-
-            const sf_or_both = form.sf_or_both.value;
-            const week = form.week.value;
-
-            const checkboxes1 = document.getElementsByName("group1");
-            let elgb = '';
-            let checked1 = 0;
-            for(let i = 0; i < checkboxes1.length; i++) {  
-                if (checkboxes1[i].checked) {
-                    elgb += checkboxes1[i].value + '_';
-                    checked1++;
-                }
-            }
-
-            const checkboxes2 = document.getElementsByName("group2");
-            let cat = '';
-            let checked2 = 0;
-            for (let i = 0; i < checkboxes2.length; i++) {
-                if (checkboxes2[i].checked) {
-                    cat += checkboxes2[i].value + '_';
-                    checked2++;
-                }
-            }
-
-            const checkboxes3 = document.getElementsByName("group3");
-            let agnc = '';
-            let checked3 = 0;
-            for (let i = 0; i < checkboxes3.length; i++) {
-                if (checkboxes3[i].checked) {
-                    agnc += checkboxes3[i].value + '_';
-                    checked3++;
-                }
-            }
-
-            if (checked1 == 0) {
-                alert('Please select an ELIGIBILE APPLICANT checkbox.');
-            }
-            else if (checked2 == 0) {
-                alert('Please select an CATEGORY OF FUNDING ACTIVITY checkbox.');
-            }
-            else if (checked3 == 0) {
-                alert('Please select an AGENCY checkbox.')
-            }
-            else {
-                const title_keyword = title_kwrd;
-                const desc_keyword = desc_kwrd;
-                const eligibility = elgb.substring(0, elgb.length - 1);
-                const category = cat.substring(0, cat.length - 1);
-                const agency = agnc.substring(0, agnc.length - 1);
-                const form = 'html';
-                try {
-                    const res = await fetch('/filter_grants_1/', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            title_keyword,
-                            desc_keyword,
-                            sf_or_both,
-                            eligibility,
-                            category,
-                            agency,
-                            week,
-                            form
-                        }),
-                        headers: {'Content-Type': 'application/json'}
-                    });
-                    // output_div.innerHTML = res.text()
-                    const data = await res.text();
-                    console.log(data);
-                    output_div.innerHTML = await data;
-                } catch (err) {
-                    console.log(err);
-                }
-            }
-        });
-
-    </script>
 <%- include('partials/footer') %>
