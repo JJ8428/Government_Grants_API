@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import date, timedelta, datetime
 
 args = sys.argv
+print(args)
 
 # All the args to be provided
 title_keyword = args[1].lower() # Do this last, due to being ineffecient
@@ -50,12 +51,12 @@ possible_elgb = [
     '25',
 ]
 if eligibility != ['99']:
+    possible_grants_df = []
     for elgb in eligibility:
         if possible_elgb.__contains__(elgb):
-            grants_df = grants_df[grants_df['EligibleApplicants'].str.contains(elgb)]
-        else:
-            print('Illegal arg: eligibility', elgb)
-            sys.exit()
+            possible_grants_df.append(grants_df[grants_df['EligibleApplicants'].str.contains(elgb)])
+    grants_df = pd.concat(possible_grants_df)
+    grants_df.drop_duplicates()
 
 # Filter by category of funding activity
 possible_cat = [
@@ -140,6 +141,7 @@ else:
     print('Illegal arg: weeks', weeks)
     sys.exit()
 
+# Filter for keywords
 if title_keyword != 'no_filter':
     tmp_kwrds = title_keyword.split(',')
     kwrds = []
@@ -153,10 +155,10 @@ if title_keyword != 'no_filter':
     possible_grants_df = []
     for kwrd in kwrds:
         possible_grants_df.append(grants_df[grants_df['OpportunityTitle'].str.contains(kwrd, case=False)])
+    for kwrd in kwrds_not:
+        possible_grants_df.append(grants_df[~grants_df['OpportunityTitle'].str.contains(kwrd, case=False)])
     grants_df = pd.concat(possible_grants_df)
     grants_df.drop_duplicates()
-    for kwrd in kwrds_not:
-        grants_df = grants_df[~grants_df['OpportunityTitle'].str.contains(kwrd, case=False)]
 
 if desc_keyword != 'no_filter':
     tmp_kwrds = desc_keyword.split(',')
@@ -171,10 +173,10 @@ if desc_keyword != 'no_filter':
     possible_grants_df = []
     for kwrd in kwrds:
         possible_grants_df.append(grants_df[grants_df['Description'].str.contains(kwrd, case=False)])
+    for kwrd in kwrds_not:
+        possible_grants_df.append(grants_df[~grants_df['Description'].str.contains(kwrd, case=False)])
     grants_df = pd.concat(possible_grants_df)
     grants_df.drop_duplicates()
-    for kwrd in kwrds_not:
-        grants_df = grants_df[~grants_df['Description'].str.contains(kwrd, case=False)]
 
 # Choose the form to return the output as
 if form == 'html':
