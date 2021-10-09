@@ -125,7 +125,6 @@
     </div>
     <div id="output"></div>
     <script>
-
         function elgb_checkbox(given) {
             const checkboxes = document.getElementsByName("group1");
             if (given.value == "99") {
@@ -137,7 +136,6 @@
                 checkboxes[0].checked = false;
             }
         }
-
         function cat_checkbox(given) {
             const checkboxes = document.getElementsByName("group2");
             if (given.value == "Z") {
@@ -149,7 +147,6 @@
                 checkboxes[0].checked = false;
             }
         }
-
         function agnc_checkbox(given) {
             const checkboxes = document.getElementsByName("group3");
             if (given.value == "*") {
@@ -161,25 +158,20 @@
                 checkboxes[0].checked = false;
             }
         }
-
         const form = document.querySelector('form');
         let output_div = document.getElementById('output');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
-
             let title_kwrd = form.title_kwrd.value.replace(/\s+/g, '');
             if (title_kwrd == '') {
                 title_kwrd = 'no_filter';
             }
-
             let desc_kwrd = form.desc_kwrd.value.replace(/\s+/g, '');
             if (desc_kwrd == '') {
                 desc_kwrd = 'no_filter';
             }
-
             const sf_or_both = form.sf_or_both.value;
             const week = form.week.value;
-
             const checkboxes1 = document.getElementsByName("group1");
             let elgb = '';
             let checked1 = 0;
@@ -189,7 +181,6 @@
                     checked1++;
                 }
             }
-
             const checkboxes2 = document.getElementsByName("group2");
             let cat = '';
             let checked2 = 0;
@@ -199,7 +190,6 @@
                     checked2++;
                 }
             }
-
             const checkboxes3 = document.getElementsByName("group3");
             let agnc = '';
             let checked3 = 0;
@@ -209,7 +199,6 @@
                     checked3++;
                 }
             }
-
             if (checked1 == 0) {
                 alert('Please select an ELIGIBILE APPLICANT checkbox.');
             }
@@ -250,6 +239,5 @@
                 }
             }
         });
-
     </script>
 <%- include('partials/footer') %>
