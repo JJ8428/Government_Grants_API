@@ -55,12 +55,12 @@ possible_elgb = [
     '25',
 ]
 if eligibility != ['99']:
+    possible_grants_df = []
     for elgb in eligibility:
         if possible_elgb.__contains__(elgb):
-            grants_df = grants_df[grants_df['EligibleApplicants'].str.contains(elgb)]
-        else:
-            print('Illegal arg: eligibility', elgb)
-            sys.exit()
+            possible_grants_df.append(grants_df[grants_df['EligibleApplicants'].str.contains(elgb)])
+    grants_df = pd.concat(possible_grants_df)
+    grants_df.drop_duplicates()
 
 # Filter by category of funding activity
 possible_cat = [
