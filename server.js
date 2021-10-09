@@ -24,6 +24,7 @@ app.get('/api_doc', (req, res) => {
     res.render('api_doc');
 });
 
+// POST method | No secret key
 app.post('/filter_grants_1/', (req, res) => {
     const { title_keyword, desc_keyword, sf_or_both, eligibility, category, agency, week, form } = req.body;
     console.log('===', '\n', req. url, '\n', req.params, '\n===');
@@ -40,6 +41,7 @@ app.post('/filter_grants_1/', (req, res) => {
     });
 });
 
+// POST method w/ secret key
 app.post('/filter_grants_2/', (req, res) => {
     const { title_keyword, desc_keyword, sf_or_both, eligibility, category, agency, week, email, secret_key } = req.body;
     console.log('===', '\n', req. url, '\n', req.params, '\n===');
