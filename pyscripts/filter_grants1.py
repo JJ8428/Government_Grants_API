@@ -3,7 +3,6 @@ import pandas as pd
 from datetime import date, timedelta, datetime
 
 args = sys.argv
-print(args)
 
 # All the args to be provided
 title_keyword = args[1].lower() # Do this last, due to being ineffecient
@@ -181,11 +180,12 @@ if desc_keyword != 'no_filter':
 # Choose the form to return the output as
 if form == 'html':
     cols = [
-        'EligibleApplicants',
         'Description',
+        'EligibleApplicants',
         'GrantorContactEmailDescription',
-        'OpportunityCategory',
-        'Version',
+        'OpportunityTitle',
+        'PostDate',
+        'Version'
     ]
     grants_df = grants_df.drop(columns=cols)
     print(grants_df.to_html(index=False).replace('border="1" ', ''))

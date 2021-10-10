@@ -120,9 +120,11 @@
             <br><br>
         
             <input id="submit_btn" type="submit" value="Filter Grants">
-            <br><br>
+            <br>
         </form>
+        <div id="input"></div>
     </div>
+    <br>
     <div id="output"></div>
     <script>
         function elgb_checkbox(given) {
@@ -159,6 +161,7 @@
             }
         }
         const form = document.querySelector('form');
+        let input_div = document.getElementById('input');
         let output_div = document.getElementById('output');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -215,25 +218,41 @@
                 const category = cat.substring(0, cat.length - 1);
                 const agency = agnc.substring(0, agnc.length - 1);
                 const form = 'html';
+                const req_body = JSON.stringify({
+                    title_keyword,
+                    desc_keyword,
+                    sf_or_both,
+                    eligibility,
+                    category,
+                    agency,
+                    week,
+                    form
+                })
                 try {
                     const res = await fetch('/filter_grants_1/', {
                         method: 'POST',
-                        body: JSON.stringify({
-                            title_keyword,
-                            desc_keyword,
-                            sf_or_both,
-                            eligibility,
-                            category,
-                            agency,
-                            week,
-                            form
-                        }),
+                        body: req_body,
                         headers: {'Content-Type': 'application/json'}
                     });
                     // output_div.innerHTML = res.text()
                     const data = await res.text();
-                    console.log(data);
-                    output_div.innerHTML = await data;
+                    console.log(data.split("'html']\n")[1]);
+                    // This is ugly, but this is how to get rid of spacing in <pre> tag
+                    input_div.innerHTML = 
+`<p><b>req.body for the submitted request:<b></p>
+<pre>
+    {
+        title_keyword: '${title_keyword}',
+        desc_keyword: '${desc_keyword}',
+        sf_or_both: '${sf_or_both}',
+        eligibility: '${eligibility}',
+        category: '${category}',
+        agency: '${agency}',
+        week: '${week}',
+        form: '${form}'
+    }
+</pre>`;
+                output_div.innerHTML = await data;
                 } catch (err) {
                     console.log(err);
                 }
