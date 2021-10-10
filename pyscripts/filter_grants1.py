@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import date, timedelta, datetime
 
 args = sys.argv
+print(args)
 
 # All the args to be provided
 title_keyword = args[1].lower() # Do this last, due to being ineffecient
