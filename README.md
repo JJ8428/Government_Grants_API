@@ -2,7 +2,9 @@
 
 Final product hosted using Heroku. Can be accessed at the following link: https://ggrantsapi.herokuapp.com/ (It may take a few seconds to load)
 
-This is just little API I created as a personal project. It's purpose it to make a quick way for me to filter through grants with a UI and functionality that I myself am familiar with. There already exists an official API for https://www.grants.gov/, this only exists to serve as an practice of Node.js, Express.js, Python, Pandas, Heroku Development, etc. Currently, there only exists 2 API methods both of which are POSTS. More info can be found in the API Documentation in the link I mentioned above. 
+This is just little API I created as a personal project. It's purpose it to make a quick way for me to filter through grants with a UI and functionality that I myself am familiar with. There already exists an official API for https://www.grants.gov/, this only exists to serve as an practice of Node.js, Express.js, Python, Pandas, Heroku Development, etc. 
+
+<b>Currently, there only exists 2 API methods both of which are POSTS. More info can be found in the API Documentation in the link I mentioned above. Click on the link and navigate to the API Documentation Page!<b> 
 
 ## How to run locally: 
 
