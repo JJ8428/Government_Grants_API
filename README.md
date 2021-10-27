@@ -1,5 +1,7 @@
 # Government_Grants_API
 
+I plan on returning back to this project once I learn REACT and/or VUE to make a more professional front end.
+
 Final product hosted using Heroku. Can be accessed at the following link: https://ggrantsapi.herokuapp.com/ (It may take a few seconds to load)
 
 This is just little API I created as a personal project. It's purpose it to make a quick way for me to filter through grants with a UI and functionality that I myself am familiar with. There already exists an official API for https://www.grants.gov/, this only exists to serve as an practice of Node.js, Express.js, Python, Pandas, Heroku Development, etc. 
